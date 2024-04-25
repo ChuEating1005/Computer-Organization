@@ -27,20 +27,7 @@ class VSingleCycleCPU VL_NOT_FINAL : public VerilatedModel {
     // propagate new values into/out from the Verilated model.
     VL_IN8(&clk,0,0);
     VL_IN8(&start,0,0);
-    VL_OUT(&t0,31,0);
-    VL_OUT(&t1,31,0);
-    VL_OUT(&t2,31,0);
-    VL_OUT(&t3,31,0);
-    VL_OUT(&t4,31,0);
-    VL_OUT(&t5,31,0);
-    VL_OUT(&t6,31,0);
-    VL_OUT(&s0,31,0);
-    VL_OUT(&s1,31,0);
-    VL_OUT(&s2,31,0);
-    VL_OUT(&sp,31,0);
-    VL_OUT(&a0,31,0);
-    VL_OUT(&a1,31,0);
-    VL_OUT(&ra,31,0);
+    VL_OUT((&r)[32],31,0);
 
     // CELLS
     // Public to allow access to /* verilator public */ items.

@@ -37,20 +37,6 @@ class VSingleCycleCPU___024root final : public VerilatedModule {
     CData/*0:0*/ __Vtrigrprev__TOP__SingleCycleCPU__DOT__memRead;
     CData/*0:0*/ __VactDidInit;
     CData/*0:0*/ __VactContinue;
-    VL_OUT(t0,31,0);
-    VL_OUT(t1,31,0);
-    VL_OUT(t2,31,0);
-    VL_OUT(t3,31,0);
-    VL_OUT(t4,31,0);
-    VL_OUT(t5,31,0);
-    VL_OUT(t6,31,0);
-    VL_OUT(s0,31,0);
-    VL_OUT(s1,31,0);
-    VL_OUT(s2,31,0);
-    VL_OUT(sp,31,0);
-    VL_OUT(a0,31,0);
-    VL_OUT(a1,31,0);
-    VL_OUT(ra,31,0);
     IData/*31:0*/ SingleCycleCPU__DOT__PC;
     IData/*31:0*/ SingleCycleCPU__DOT__MuxPC_Out;
     IData/*31:0*/ SingleCycleCPU__DOT__MuxALU_Out;
@@ -66,6 +52,7 @@ class VSingleCycleCPU___024root final : public VerilatedModule {
     IData/*31:0*/ __VstlIterCount;
     IData/*31:0*/ __Vtrigrprev__TOP__SingleCycleCPU__DOT__ALU_Out;
     IData/*31:0*/ __VactIterCount;
+    VL_OUT(r[32],31,0);
     VlUnpacked<CData/*7:0*/, 128> SingleCycleCPU__DOT__m_InstMem__DOT__insts;
     VlUnpacked<IData/*31:0*/, 32> SingleCycleCPU__DOT__m_Register__DOT__regs;
     VlUnpacked<CData/*7:0*/, 128> SingleCycleCPU__DOT__m_DataMemory__DOT__data_memory;

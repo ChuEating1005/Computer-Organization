@@ -13,20 +13,7 @@ VSingleCycleCPU::VSingleCycleCPU(VerilatedContext* _vcontextp__, const char* _vc
     , vlSymsp{new VSingleCycleCPU__Syms(contextp(), _vcname__, this)}
     , clk{vlSymsp->TOP.clk}
     , start{vlSymsp->TOP.start}
-    , t0{vlSymsp->TOP.t0}
-    , t1{vlSymsp->TOP.t1}
-    , t2{vlSymsp->TOP.t2}
-    , t3{vlSymsp->TOP.t3}
-    , t4{vlSymsp->TOP.t4}
-    , t5{vlSymsp->TOP.t5}
-    , t6{vlSymsp->TOP.t6}
-    , s0{vlSymsp->TOP.s0}
-    , s1{vlSymsp->TOP.s1}
-    , s2{vlSymsp->TOP.s2}
-    , sp{vlSymsp->TOP.sp}
-    , a0{vlSymsp->TOP.a0}
-    , a1{vlSymsp->TOP.a1}
-    , ra{vlSymsp->TOP.ra}
+    , r{vlSymsp->TOP.r}
     , rootp{&(vlSymsp->TOP)}
 {
     // Register model with the context
