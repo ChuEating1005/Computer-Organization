@@ -12,7 +12,7 @@ module Control (
     // TODO: implement your Control here
     // Hint: follow the Architecture (figure in spec) to set output signal
     
-    reg ctrl[7:0];
+    reg [7:0] ctrl;
     assign {branch, memRead, memtoReg, ALUOp, memWrite, ALUSrc, regWrite} = ctrl;
 
     always @(*) begin
