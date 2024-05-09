@@ -11,10 +11,10 @@ module SingleCycleCPU (
 // The following provides simple template,
 // you can modify it as you wish except I/O pin and register module
 
-wire [31:0] PC, PC_plus4, PC_branch, MuxPC_Out, MuxALU_Out, ALU_Out, Ins, Imm, readData1, readData2, writeData, shiftOut, readData;
+wire [31:0] PC, PC_plus4, MuxPC_Out, MuxSelA_Out, MuxSelB_Out, ALU_Out, Ins, Imm, readData1, readData2, writeData, readData;
 wire [3:0] ALUCtl;
-wire [1:0] ALUOp;
-wire branch, memRead, memWrite, memtoReg, ALUSrc, regWrite, zero, andOut;
+wire [1:0] ALUOp, memtoReg;
+wire PCSel, memRead, memWrite, SelA, SelB, regWrite, BrLt, BrEq;
 
 PC m_PC(
     .clk(clk),
@@ -36,13 +36,17 @@ InstructionMemory m_InstMem(
 
 Control m_Control(
     .opcode(Ins[6:0]),
-    .branch(branch),
-    .memRead(memRead),
-    .memtoReg(memtoReg),
-    .ALUOp(ALUOp),
-    .memWrite(memWrite),
-    .ALUSrc(ALUSrc),
-    .regWrite(regWrite)
+    .funct3(Ins[14:12]),
+    .BrEq(BrEq),
+    .BrLt(BrLt),
+    .PCSel(PCSel), // 1 bit
+    .memRead(memRead), // 1 bit
+    .memtoReg(memtoReg), // 2 bits
+    .ALUOp(ALUOp), // 2 bits
+    .memWrite(memWrite), // 1 bit
+    .SelA(SelA), // 1 bit
+    .SelB(SelB), // 1 bit
+    .regWrite(regWrite) // 1 bit
 );
 
 // For Student: 
@@ -71,31 +75,32 @@ ImmGen m_ImmGen(
     .imm(Imm)
 );
 
-ShiftLeftOne m_ShiftLeftOne(
-    .i(Imm),
-    .o(shiftOut)
+BranchComp branch_Comp(
+    .readData1(readData1),
+    .readData2(readData2),
+    .BrEq(BrEq),
+    .BrLt(BrLt)
 );
-
-Adder m_Adder_2(
-    .a(PC),
-    .b(shiftOut),
-    .sum(PC_branch)
-);
-
-and A1(andOut, branch, zero);
 
 Mux2to1 #(.size(32)) m_Mux_PC(
-    .sel(andOut),
+    .sel(PCSel),
     .s0(PC_plus4),
-    .s1(PC_branch),
+    .s1(ALU_Out),
     .out(MuxPC_Out)
 );
 
-Mux2to1 #(.size(32)) m_Mux_ALU(
-    .sel(ALUSrc),
+Mux2to1 #(.size(32)) m_Mux_SelA(
+    .sel(SelA),
+    .s0(readData1),
+    .s1(PC),
+    .out(MuxSelA_Out)
+);
+
+Mux2to1 #(.size(32)) m_Mux_SelB(
+    .sel(SelB),
     .s0(readData2),
     .s1(Imm),
-    .out(MuxALU_Out)
+    .out(MuxSelB_Out)
 );
 
 ALUCtrl m_ALUCtrl(
@@ -123,10 +128,11 @@ DataMemory m_DataMemory(
     .readData(readData)
 );
 
-Mux2to1 #(.size(32)) m_Mux_WriteData(
+Mux3to1 #(.size(32)) m_Mux_WriteData(
     .sel(memtoReg),
     .s0(ALU_Out),
     .s1(readData),
+    .s2(PC_plus4),
     .out(writeData)
 );
 

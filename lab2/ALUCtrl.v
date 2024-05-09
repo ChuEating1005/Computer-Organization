@@ -10,8 +10,8 @@ module ALUCtrl (
     // Hint: using ALUOp, funct7, funct3 to select exact operation
     always @(*) begin
         case(ALUOp)
-            2'b00: ALUCtl = 4'b0010; // ld, sd (add)
-            2'b01: ALUCtl = 4'b0110; // beq (sub)
+            2'b00: ALUCtl = 4'b0010; // ld, sd, jal, jalr, beq, bne, blt, bge (add)
+            // 2'b01: ALUCtl = 4'b0110;
             2'b10: case({funct7, funct3}) // r-type
                 4'b0000: ALUCtl = 4'b0010; // add
                 4'b1000: ALUCtl = 4'b0110; // sub
