@@ -10,7 +10,7 @@ using namespace std;
 
 #include "VSingleCycleCPU.h"
 
-#define max_cycles 1000
+#define max_cycles 100
 
 VerilatedContext *contextp = new VerilatedContext;
 VerilatedVcdC *m_trace = new VerilatedVcdC;
