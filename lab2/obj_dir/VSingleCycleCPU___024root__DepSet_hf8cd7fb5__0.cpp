@@ -97,7 +97,7 @@ VL_INLINE_OPT void VSingleCycleCPU___024root___nba_sequent__TOP__1(VSingleCycleC
     if (__Vdlyvset__SingleCycleCPU__DOT__m_Register__DOT__regs__v1) {
         vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[0U] = 0U;
         vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[1U] = 0U;
-        vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[2U] = 0x80U;
+        vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[2U] = 0x800U;
         vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[3U] = 0U;
         vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[4U] = 0U;
         vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[5U] = 0U;
