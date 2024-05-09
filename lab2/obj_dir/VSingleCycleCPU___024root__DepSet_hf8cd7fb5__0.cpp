@@ -47,7 +47,7 @@ VL_INLINE_OPT void VSingleCycleCPU___024root___nba_sequent__TOP__0(VSingleCycleC
     }
 }
 
-extern const VlUnpacked<SData/*9:0*/, 4096> VSingleCycleCPU__ConstPool__TABLE_h7dc47e6a_0;
+extern const VlUnpacked<SData/*9:0*/, 4096> VSingleCycleCPU__ConstPool__TABLE_h3f2cbff4_0;
 extern const VlUnpacked<CData/*3:0*/, 64> VSingleCycleCPU__ConstPool__TABLE_h2fc2a4f8_0;
 
 VL_INLINE_OPT void VSingleCycleCPU___024root___nba_sequent__TOP__1(VSingleCycleCPU___024root* vlSelf) {
@@ -390,7 +390,7 @@ VL_INLINE_OPT void VSingleCycleCPU___024root___nba_sequent__TOP__1(VSingleCycleC
                                                << 7U) 
                                               | (IData)(vlSelf->SingleCycleCPU__DOT____Vcellinp__m_Control__opcode))));
     vlSelf->SingleCycleCPU__DOT__m_Control__DOT__ctrl 
-        = VSingleCycleCPU__ConstPool__TABLE_h7dc47e6a_0
+        = VSingleCycleCPU__ConstPool__TABLE_h3f2cbff4_0
         [__Vtableidx1];
     vlSelf->SingleCycleCPU__DOT__MuxSelA_Out = ((2U 
                                                  & (IData)(vlSelf->SingleCycleCPU__DOT__m_Control__DOT__ctrl))

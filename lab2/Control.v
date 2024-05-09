@@ -28,10 +28,10 @@ module Control (
             7'b1101111: ctrl = 10'b10_11_00_0111; // jal
             7'b1100111: ctrl = 10'b10_11_00_0101; // jalr
             7'b1100011 : case(funct3)
-                3'b000 : ctrl = (BrEq == 1) ? 10'b10_xx_00_0000 : 10'b00_xx_00_0110; // beq
-                3'b001 : ctrl = (BrEq == 0) ? 10'b10_xx_00_0000 : 10'b00_xx_00_0110; // bne
-                3'b100 : ctrl = (BrLt == 1) ? 10'b10_xx_00_0000 : 10'b00_xx_00_0110; // blt
-                3'b101 : ctrl = (BrLt == 0) ? 10'b10_xx_00_0000 : 10'b00_xx_00_0110; // bge
+                3'b000 : ctrl = (BrEq == 1) ? 10'b10_xx_00_0110 : 10'b00_xx_00_0110; // beq
+                3'b001 : ctrl = (BrEq == 0) ? 10'b10_xx_00_0110 : 10'b00_xx_00_0110; // bne
+                3'b100 : ctrl = (BrLt == 1) ? 10'b10_xx_00_0110 : 10'b00_xx_00_0110; // blt
+                3'b101 : ctrl = (BrLt == 0) ? 10'b10_xx_00_0110 : 10'b00_xx_00_0110; // bge
                 default: ctrl = 10'bxxxxxxxxxx;
             endcase
             default:     ctrl = 10'bxxxxxxxxxx;

@@ -132,7 +132,7 @@ VL_ATTR_COLD void VSingleCycleCPU___024root___dump_triggers__stl(VSingleCycleCPU
 }
 #endif  // VL_DEBUG
 
-extern const VlUnpacked<SData/*9:0*/, 4096> VSingleCycleCPU__ConstPool__TABLE_h7dc47e6a_0;
+extern const VlUnpacked<SData/*9:0*/, 4096> VSingleCycleCPU__ConstPool__TABLE_h3f2cbff4_0;
 extern const VlUnpacked<CData/*3:0*/, 64> VSingleCycleCPU__ConstPool__TABLE_h2fc2a4f8_0;
 
 VL_ATTR_COLD void VSingleCycleCPU___024root___stl_sequent__TOP__0(VSingleCycleCPU___024root* vlSelf) {
@@ -413,7 +413,7 @@ VL_ATTR_COLD void VSingleCycleCPU___024root___stl_sequent__TOP__0(VSingleCycleCP
                                                << 7U) 
                                               | (IData)(vlSelf->SingleCycleCPU__DOT____Vcellinp__m_Control__opcode))));
     vlSelf->SingleCycleCPU__DOT__m_Control__DOT__ctrl 
-        = VSingleCycleCPU__ConstPool__TABLE_h7dc47e6a_0
+        = VSingleCycleCPU__ConstPool__TABLE_h3f2cbff4_0
         [__Vtableidx1];
     vlSelf->SingleCycleCPU__DOT__memRead = (1U & ((IData)(vlSelf->SingleCycleCPU__DOT__m_Control__DOT__ctrl) 
                                                   >> 8U));
