@@ -33,7 +33,7 @@ VL_ATTR_COLD void VSingleCycleCPU___024root___eval_initial__TOP(VSingleCycleCPU_
     VSingleCycleCPU__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    VSingleCycleCPU___024root___eval_initial__TOP\n"); );
     // Init
-    VlWide<6>/*191:0*/ __Vtemp_hd0a1b870__0;
+    VlWide<6>/*191:0*/ __Vtemp_h0ec314dc__0;
     // Body
     vlSelf->SingleCycleCPU__DOT__m_InstMem__DOT__insts[0U] = 0U;
     vlSelf->SingleCycleCPU__DOT__m_InstMem__DOT__insts[1U] = 0U;
@@ -67,13 +67,13 @@ VL_ATTR_COLD void VSingleCycleCPU___024root___eval_initial__TOP(VSingleCycleCPU_
     vlSelf->SingleCycleCPU__DOT__m_InstMem__DOT__insts[0x1dU] = 0U;
     vlSelf->SingleCycleCPU__DOT__m_InstMem__DOT__insts[0x1eU] = 0U;
     vlSelf->SingleCycleCPU__DOT__m_InstMem__DOT__insts[0x1fU] = 0U;
-    __Vtemp_hd0a1b870__0[0U] = 0x2e747874U;
-    __Vtemp_hd0a1b870__0[1U] = 0x494f4e53U;
-    __Vtemp_hd0a1b870__0[2U] = 0x52554354U;
-    __Vtemp_hd0a1b870__0[3U] = 0x494e5354U;
-    __Vtemp_hd0a1b870__0[4U] = 0x4553545fU;
-    __Vtemp_hd0a1b870__0[5U] = 0x54U;
-    VL_READMEM_N(false, 8, 128, 0, VL_CVT_PACK_STR_NW(6, __Vtemp_hd0a1b870__0)
+    __Vtemp_h0ec314dc__0[0U] = 0x2e747874U;
+    __Vtemp_h0ec314dc__0[1U] = 0x4f4e5333U;
+    __Vtemp_h0ec314dc__0[2U] = 0x55435449U;
+    __Vtemp_h0ec314dc__0[3U] = 0x4e535452U;
+    __Vtemp_h0ec314dc__0[4U] = 0x53545f49U;
+    __Vtemp_h0ec314dc__0[5U] = 0x5445U;
+    VL_READMEM_N(false, 8, 128, 0, VL_CVT_PACK_STR_NW(6, __Vtemp_h0ec314dc__0)
                  ,  &(vlSelf->SingleCycleCPU__DOT__m_InstMem__DOT__insts)
                  , 0, ~0ULL);
 }
