@@ -8,7 +8,7 @@ module BranchComp (
     // BrEq is true if readData1 equals readData2
     // BrLt is true if readData1 is less than readData2
 
-    BrEq = (readData1 == readData2) ? 1 : 0;
-    BrLt = (readData1 < readData2) ? 1 : 0;
+    assign BrEq = (readData1 == readData2) ? 1 : 0;
+    assign BrLt = (readData1 < readData2) ? 1 : 0;
 
 endmodule
