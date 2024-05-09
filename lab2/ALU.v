@@ -9,6 +9,17 @@ module ALU (
 
     // TODO: implement your ALU here
     // Hint: you can use operator to implement
+    always @(*) begin
+        if (ALUctl == 4'b0000) ALUOut = A & B;
+        else if (ALUctl == 4'b0001) ALUOut = A | B;
+        else if (ALUctl == 4'b0010) ALUOut = A + B;
+        else if (ALUctl == 4'b0110) ALUOut = A - B;
+        else if (ALUctl == 4'b0111) ALUOut = A < B ? 32'b1 : 32'b0;
+        else ALUOut = {32{1'bx}};
+
+    end
+    
+    assign zero = (ALUOut == 32'b0) ? 1'b1 : 1'b0;
     
 endmodule
 
