@@ -1,7 +1,7 @@
 module ALU (
     input [3:0] ALUctl,
     input signed [31:0] A,B,
-    output reg signed [31:0] ALUOut,
+    output reg signed [31:0] ALUOut
     // output zero -> remove this line
 );
     // ALU has two operand, it execute different operator based on ALUctl wire 
@@ -16,7 +16,6 @@ module ALU (
         else if (ALUctl == 4'b0110) ALUOut = A - B;
         else if (ALUctl == 4'b0111) ALUOut = A < B ? 32'b1 : 32'b0;
         else ALUOut = {32{1'bx}};
-
     end
     
     // assign zero = (ALUOut == 32'b0) ? 1'b1 : 1'b0; //

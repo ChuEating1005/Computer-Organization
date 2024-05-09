@@ -17,11 +17,10 @@ class VSingleCycleCPU___024root final : public VerilatedModule {
     VL_IN8(start,0,0);
     CData/*0:0*/ SingleCycleCPU__DOT__memRead;
     CData/*3:0*/ SingleCycleCPU__DOT__ALUCtl;
+    CData/*2:0*/ SingleCycleCPU__DOT____Vcellinp__m_Control__funct3;
     CData/*6:0*/ SingleCycleCPU__DOT____Vcellinp__m_Control__opcode;
     CData/*4:0*/ SingleCycleCPU__DOT____Vcellinp__m_Register__writeReg;
-    CData/*7:0*/ SingleCycleCPU__DOT__m_Control__DOT__ctrl;
     CData/*7:0*/ __VdfgTmp_h00ca03af__0;
-    CData/*7:0*/ __VdfgTmp_h980adac1__0;
     CData/*6:0*/ __Vdlyvdim0__SingleCycleCPU__DOT__m_DataMemory__DOT__data_memory__v0;
     CData/*7:0*/ __Vdlyvval__SingleCycleCPU__DOT__m_DataMemory__DOT__data_memory__v0;
     CData/*0:0*/ __Vdlyvset__SingleCycleCPU__DOT__m_DataMemory__DOT__data_memory__v0;
@@ -37,9 +36,11 @@ class VSingleCycleCPU___024root final : public VerilatedModule {
     CData/*0:0*/ __Vtrigrprev__TOP__SingleCycleCPU__DOT__memRead;
     CData/*0:0*/ __VactDidInit;
     CData/*0:0*/ __VactContinue;
+    SData/*9:0*/ SingleCycleCPU__DOT__m_Control__DOT__ctrl;
     IData/*31:0*/ SingleCycleCPU__DOT__PC;
     IData/*31:0*/ SingleCycleCPU__DOT__MuxPC_Out;
-    IData/*31:0*/ SingleCycleCPU__DOT__MuxALU_Out;
+    IData/*31:0*/ SingleCycleCPU__DOT__MuxSelA_Out;
+    IData/*31:0*/ SingleCycleCPU__DOT__MuxSelB_Out;
     IData/*31:0*/ SingleCycleCPU__DOT__ALU_Out;
     IData/*31:0*/ SingleCycleCPU__DOT__Ins;
     IData/*31:0*/ SingleCycleCPU__DOT__Imm;

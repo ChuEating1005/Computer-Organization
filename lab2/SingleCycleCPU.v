@@ -112,10 +112,9 @@ ALUCtrl m_ALUCtrl(
 
 ALU m_ALU(
     .ALUctl(ALUCtl),
-    .A(readData1),
-    .B(MuxALU_Out),
-    .ALUOut(ALU_Out),
-    .zero(zero)
+    .A(MuxSelA_Out),
+    .B(MuxSelB_Out),
+    .ALUOut(ALU_Out)
 );
 
 DataMemory m_DataMemory(

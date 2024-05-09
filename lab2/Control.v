@@ -16,7 +16,7 @@ module Control (
     // TODO: implement your Control here
     // Hint: follow the Architecture (figure in spec) to set output signal
     
-    reg [7:0] ctrl;
+    reg [9:0] ctrl;
     assign {PCSel, memRead, memtoReg, ALUOp, memWrite, SelB, SelA, regWrite} = ctrl;
 
     always @(*) begin
