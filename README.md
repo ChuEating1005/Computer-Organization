@@ -1,3 +1,4 @@
+# NYCU 2024 Spring Course: Computer Organization
 ## Lab0
 ### Environment Setup
 - OS: Ubuntu 22.04.4 LTS
@@ -23,3 +24,17 @@ autoconf         # Create ./configure script
 make -j `nproc`  # Build Verilator itself (if error, try just 'make')
 sudo make install
 ```
+## Lab1 
+### Single Cycle CPU with Simple RISC-V Instruction
+- `add`, `sub`, `and`, `or`, `slt`
+- `addi`, `subi`, `andi`, `ori`, `slti`
+- `lw`, `sw`
+- `beq`
+
+## Lab2
+### Single Cycle CPU with Branch Instruction
+- `add`, `sub`, `and`, `or`, `slt`
+- `addi`, `subi`, `andi`, `ori`, `slti`
+- `lw`, `sw`
+- `beq`, `bne`, `blt`, `bge`
+- `jal`, `jalr`
