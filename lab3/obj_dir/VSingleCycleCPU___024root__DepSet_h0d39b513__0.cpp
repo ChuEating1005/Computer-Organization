@@ -16,12 +16,12 @@ void VSingleCycleCPU___024root___eval_triggers__act(VSingleCycleCPU___024root* v
     VSingleCycleCPU__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    VSingleCycleCPU___024root___eval_triggers__act\n"); );
     // Body
-    vlSelf->__VactTriggered.at(0U) = (((~ (IData)(vlSelf->clk)) 
-                                       & (IData)(vlSelf->__Vtrigrprev__TOP__clk)) 
+    vlSelf->__VactTriggered.at(0U) = (((IData)(vlSelf->clk) 
+                                       & (~ (IData)(vlSelf->__Vtrigrprev__TOP__clk))) 
                                       | ((~ (IData)(vlSelf->start)) 
                                          & (IData)(vlSelf->__Vtrigrprev__TOP__start)));
-    vlSelf->__VactTriggered.at(1U) = (((IData)(vlSelf->clk) 
-                                       & (~ (IData)(vlSelf->__Vtrigrprev__TOP__clk))) 
+    vlSelf->__VactTriggered.at(1U) = (((~ (IData)(vlSelf->clk)) 
+                                       & (IData)(vlSelf->__Vtrigrprev__TOP__clk)) 
                                       | ((~ (IData)(vlSelf->start)) 
                                          & (IData)(vlSelf->__Vtrigrprev__TOP__start)));
     vlSelf->__VactTriggered.at(2U) = ((vlSelf->SingleCycleCPU__DOT__ALUOut_MEM 

@@ -6,7 +6,7 @@ module PC (
 );
 
     // TODO: implement your program counter here
-    always @(negedge clk, negedge rst) begin
+    always @(posedge clk, negedge rst) begin
         if (~rst) pc_o <= pc_o;
         else pc_o <= pc_i;
     end
