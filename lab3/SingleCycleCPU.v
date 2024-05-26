@@ -11,15 +11,27 @@ module SingleCycleCPU (
 // The following provides simple template,
 // you can modify it as you wish except I/O pin and register module
 
-wire [31:0] PC, PC_plus4, MuxPC_Out, MuxSelA_Out, MuxSelB_Out, ALU_Out, Ins, Imm, readData1, readData2, writeData, readData;
+wire [31:0] PC, PC_plus4, MuxSelB_Out, writeData;
 wire [3:0] ALUCtl;
-wire [1:0] ALUOp, memtoReg;
-wire PCSel, memRead, memWrite, SelA, SelB, regWrite, BrLt, BrEq;
+// 5-stage pipeline registers
+wire [31:0] inst_IF, inst_ID, inst_EX, inst_MEM, inst_WB;
+wire [31:0] rs1_ID, rs1_EX;
+wire [31:0] rs2_ID, rs2_EX, rs2_MEM;
+wire [31:0] imm_ID, imm_EX;
+wire [31:0] ALUOut_EX, ALUOut_MEM, ALUOut_WB;
+wire [31:0] readData_MEM, readData_WB;
+wire memRead_ID, memRead_EX, memRead_MEM;
+wire memWrite_ID, memWrite_EX, memWrite_MEM;
+wire memtoReg_ID, memtoReg_EX, memtoReg_MEM, memtoReg_WB;
+wire regWrite_ID, regWrite_EX, regWrite_MEM, regWrite_WB;
+wire [1:0] ALUOp_ID, ALUOp_EX;
+wire SelB_ID, SelB_EX; 
+
 
 PC m_PC(
     .clk(clk),
     .rst(start),
-    .pc_i(MuxPC_Out),
+    .pc_i(PC_plus4),
     .pc_o(PC)
 );
 
@@ -31,22 +43,25 @@ Adder m_Adder_1(
 
 InstructionMemory m_InstMem(
     .readAddr(PC),
-    .inst(Ins)
+    .inst(inst_IF)
+);
+
+IDReg m_IDReg(
+    .clk(clk),
+    .rst(start),
+    .inst_in(inst_IF),
+    .inst_out(inst_ID)
 );
 
 Control m_Control(
-    .opcode(Ins[6:0]),
-    .funct3(Ins[14:12]),
-    .BrEq(BrEq),
-    .BrLt(BrLt),
-    .PCSel(PCSel), // 1 bit
-    .memRead(memRead), // 1 bit
-    .memtoReg(memtoReg), // 2 bits
-    .ALUOp(ALUOp), // 2 bits
-    .memWrite(memWrite), // 1 bit
-    .SelA(SelA), // 1 bit
-    .SelB(SelB), // 1 bit
-    .regWrite(regWrite) // 1 bit
+    .opcode(inst_ID[6:0]),
+    .funct3(inst_ID[14:12]),
+    .memRead(memRead_ID), // 1 bit
+    .memtoReg(memtoReg_ID), // 1 bits
+    .ALUOp(ALUOp_ID), // 2 bits
+    .memWrite(memWrite_ID), // 1 bit
+    .SelB(SelB_ID), // 1 bit
+    .regWrite(regWrite_ID) // 1 bit
 );
 
 // For Student: 
@@ -56,13 +71,13 @@ Control m_Control(
 Register m_Register(
     .clk(clk),
     .rst(start),
-    .regWrite(regWrite),
-    .readReg1(Ins[19:15]),
-    .readReg2(Ins[24:20]),
-    .writeReg(Ins[11:7]),
+    .regWrite(regWrite_WB),
+    .readReg1(inst_ID[19:15]),
+    .readReg2(inst_ID[24:20]),
+    .writeReg(inst_WB[11:7]),
     .writeData(writeData),
-    .readData1(readData1),
-    .readData2(readData2)
+    .readData1(rs1_ID),
+    .readData2(rs2_ID)
 );
 
 // ======= for validation ======= 
@@ -71,67 +86,106 @@ assign r = m_Register.regs;
 // ======= for vaildation =======
 
 ImmGen m_ImmGen(
-    .inst(Ins[31:0]),
-    .imm(Imm)
+    .inst(inst_ID[31:0]),
+    .imm(imm_ID)
 );
 
-BranchComp branch_Comp(
-    .readData1(readData1),
-    .readData2(readData2),
-    .BrEq(BrEq),
-    .BrLt(BrLt)
-);
-
-Mux2to1 #(.size(32)) m_Mux_PC(
-    .sel(PCSel),
-    .s0(PC_plus4),
-    .s1(ALU_Out),
-    .out(MuxPC_Out)
-);
-
-Mux2to1 #(.size(32)) m_Mux_SelA(
-    .sel(SelA),
-    .s0(readData1),
-    .s1(PC),
-    .out(MuxSelA_Out)
+EXReg m_EXReg(
+    .clk(clk),
+    .rst(start),
+    .memRead_in(memRead_ID),
+    .memWrite_in(memWrite_ID),
+    .memtoReg_in(memtoReg_ID),
+    .regWrite_in(regWrite_ID),
+    .ALUOp_in(ALUOp_ID),
+    .SelB_in(SelB_ID),
+    .rs1_in(rs1_ID),
+    .rs2_in(rs2_ID),
+    .imm_in(imm_ID),
+    .inst_in(inst_ID),
+    .memRead_out(memRead_EX),
+    .memWrite_out(memWrite_EX),
+    .memtoReg_out(memtoReg_EX),
+    .regWrite_out(regWrite_EX),
+    .ALUOp_out(ALUOp_EX),
+    .SelB_out(SelB_EX),
+    .rs1_out(rs1_EX),
+    .rs2_out(rs2_EX),
+    .imm_out(imm_EX),
+    .inst_out(inst_EX)
 );
 
 Mux2to1 #(.size(32)) m_Mux_SelB(
-    .sel(SelB),
-    .s0(readData2),
-    .s1(Imm),
+    .sel(SelB_EX),
+    .s0(rs2_EX),
+    .s1(imm_EX),
     .out(MuxSelB_Out)
 );
 
 ALUCtrl m_ALUCtrl(
-    .ALUOp(ALUOp),
-    .funct7(Ins[30]),
-    .funct3(Ins[14:12]),
+    .ALUOp(ALUOp_EX),
+    .funct7(inst_EX[30]),
+    .funct3(inst_EX[14:12]),
     .ALUCtl(ALUCtl)
 );
 
 ALU m_ALU(
     .ALUctl(ALUCtl),
-    .A(MuxSelA_Out),
+    .A(rs1_EX),
     .B(MuxSelB_Out),
-    .ALUOut(ALU_Out)
+    .ALUOut(ALUOut_EX)
 );
+
+MEMReg m_MEMReg(
+    .clk(clk),
+    .rst(start),
+    .memRead_in(memRead_EX),
+    .memWrite_in(memWrite_EX),
+    .memtoReg_in(memtoReg_EX),
+    .regWrite_in(regWrite_EX),
+    .ALUResult_in(ALUOut_EX),
+    .rs2_in(rs2_EX),
+    .inst_in(inst_EX),
+    .memRead_out(memRead_MEM),
+    .memWrite_out(memWrite_MEM),
+    .memtoReg_out(memtoReg_MEM),
+    .regWrite_out(regWrite_MEM),
+    .ALUResult_out(ALUOut_MEM),
+    .rs2_out(rs2_MEM),
+    .inst_out(inst_MEM)
+);
+
 
 DataMemory m_DataMemory(
     .rst(start),
     .clk(clk),
-    .memWrite(memWrite),
-    .memRead(memRead),
-    .address(ALU_Out),
-    .writeData(readData2),
-    .readData(readData)
+    .memWrite(memWrite_MEM),
+    .memRead(memRead_MEM),
+    .address(ALUOut_MEM),
+    .writeData(rs2_MEM),
+    .readData(readData_MEM)
 );
 
-Mux3to1 #(.size(32)) m_Mux_WriteData(
-    .sel(memtoReg),
-    .s0(ALU_Out),
-    .s1(readData),
-    .s2(PC_plus4),
+WBReg m_WBReg(
+    .clk(clk),
+    .rst(start),
+    .memtoReg_in(memtoReg_MEM),
+    .regWrite_in(regWrite_MEM),
+    .ALUResult_in(ALUOut_MEM),
+    .readData_in(readData_MEM),
+    .inst_in(inst_MEM),
+    .memtoReg_out(memtoReg_WB),
+    .regWrite_out(regWrite_WB),
+    .ALUResult_out(ALUOut_WB),
+    .readData_out(readData_WB),
+    .inst_out(inst_WB)
+);
+
+
+Mux2to1 #(.size(32)) m_Mux_WriteData(
+    .sel(memtoReg_WB),
+    .s0(ALUOut_WB),
+    .s1(readData_WB),
     .out(writeData)
 );
 
