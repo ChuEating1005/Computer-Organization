@@ -5,12 +5,12 @@ module WBReg(
     input regWrite_in,
     input [31:0] ALUResult_in,
     input [31:0] readData_in,
-    input [31:0] inst_in,
-    output memtoReg_out,
-    output regWrite_out,
-    output [31:0] ALUResult_out,
-    output [31:0] readData_out,
-    output [31:0] inst_out
+    input [4:0] writeReg_in,
+    output reg memtoReg_out,
+    output reg regWrite_out,
+    output reg [31:0] ALUResult_out,
+    output reg [31:0] readData_out,
+    output reg [4:0] writeReg_out
 );
     always @(posedge clk, negedge rst) begin
         if (~rst) begin
@@ -18,14 +18,14 @@ module WBReg(
             regWrite_out <= regWrite_out;
             ALUResult_out <= ALUResult_out;
             readData_out <= readData_out;
-            inst_out <= inst_out;
+            writeReg_out <= writeReg_out;
         end
         else begin
             memtoReg_out <= memtoReg_in;
             regWrite_out <= regWrite_in;
             ALUResult_out <= ALUResult_in;
             readData_out <= readData_in;
-            inst_out <= inst_in;
+            writeReg_out <= writeReg_in;
         end
     end
 

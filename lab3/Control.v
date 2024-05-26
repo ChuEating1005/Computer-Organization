@@ -1,6 +1,5 @@
 module Control (
     input [6:0] opcode,
-    input [2:0] funct3,
     output reg memRead,
     output reg memtoReg,
     output reg [1:0] ALUOp,
@@ -21,7 +20,7 @@ module Control (
             7'b0010011 : ctrl = 7'b0011011; // addi, andi, ori, slti (I-type)
             7'b0000011 : ctrl = 7'b1100011; // lw
             7'b0100011 : ctrl = 7'b0x00110; // sw
-            default:     ctrl = 7'bxxxxxxxxx;
+            default:     ctrl = 7'bxxxxxxx;
         endcase 
     end
 

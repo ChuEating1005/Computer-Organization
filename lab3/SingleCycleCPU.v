@@ -13,8 +13,11 @@ module SingleCycleCPU (
 
 wire [31:0] PC, PC_plus4, MuxSelB_Out, writeData;
 wire [3:0] ALUCtl;
+wire funct7;
+wire [2:0] funct3;
 // 5-stage pipeline registers
-wire [31:0] inst_IF, inst_ID, inst_EX, inst_MEM, inst_WB;
+wire [31:0] inst_IF, inst_ID;
+wire [4:0] writeReg_EX, writeReg_MEM, writeReg_WB;
 wire [31:0] rs1_ID, rs1_EX;
 wire [31:0] rs2_ID, rs2_EX, rs2_MEM;
 wire [31:0] imm_ID, imm_EX;
@@ -55,7 +58,6 @@ IDReg m_IDReg(
 
 Control m_Control(
     .opcode(inst_ID[6:0]),
-    .funct3(inst_ID[14:12]),
     .memRead(memRead_ID), // 1 bit
     .memtoReg(memtoReg_ID), // 1 bits
     .ALUOp(ALUOp_ID), // 2 bits
@@ -74,7 +76,7 @@ Register m_Register(
     .regWrite(regWrite_WB),
     .readReg1(inst_ID[19:15]),
     .readReg2(inst_ID[24:20]),
-    .writeReg(inst_WB[11:7]),
+    .writeReg(writeReg_WB),
     .writeData(writeData),
     .readData1(rs1_ID),
     .readData2(rs2_ID)
@@ -102,7 +104,9 @@ EXReg m_EXReg(
     .rs1_in(rs1_ID),
     .rs2_in(rs2_ID),
     .imm_in(imm_ID),
-    .inst_in(inst_ID),
+    .funct7_in(inst_ID[30]),
+    .funct3_in(inst_ID[14:12]),
+    .writeReg_in(inst_ID[11:7]),
     .memRead_out(memRead_EX),
     .memWrite_out(memWrite_EX),
     .memtoReg_out(memtoReg_EX),
@@ -112,7 +116,9 @@ EXReg m_EXReg(
     .rs1_out(rs1_EX),
     .rs2_out(rs2_EX),
     .imm_out(imm_EX),
-    .inst_out(inst_EX)
+    .funct7_out(funct7),
+    .funct3_out(funct3),
+    .writeReg_out(writeReg_EX)
 );
 
 Mux2to1 #(.size(32)) m_Mux_SelB(
@@ -124,8 +130,8 @@ Mux2to1 #(.size(32)) m_Mux_SelB(
 
 ALUCtrl m_ALUCtrl(
     .ALUOp(ALUOp_EX),
-    .funct7(inst_EX[30]),
-    .funct3(inst_EX[14:12]),
+    .funct7(funct7),
+    .funct3(funct3),
     .ALUCtl(ALUCtl)
 );
 
@@ -145,14 +151,14 @@ MEMReg m_MEMReg(
     .regWrite_in(regWrite_EX),
     .ALUResult_in(ALUOut_EX),
     .rs2_in(rs2_EX),
-    .inst_in(inst_EX),
+    .writeReg_in(writeReg_EX),
     .memRead_out(memRead_MEM),
     .memWrite_out(memWrite_MEM),
     .memtoReg_out(memtoReg_MEM),
     .regWrite_out(regWrite_MEM),
     .ALUResult_out(ALUOut_MEM),
     .rs2_out(rs2_MEM),
-    .inst_out(inst_MEM)
+    .writeReg_out(writeReg_MEM)
 );
 
 
@@ -173,12 +179,12 @@ WBReg m_WBReg(
     .regWrite_in(regWrite_MEM),
     .ALUResult_in(ALUOut_MEM),
     .readData_in(readData_MEM),
-    .inst_in(inst_MEM),
+    .writeReg_in(writeReg_MEM),
     .memtoReg_out(memtoReg_WB),
     .regWrite_out(regWrite_WB),
     .ALUResult_out(ALUOut_WB),
     .readData_out(readData_WB),
-    .inst_out(inst_WB)
+    .writeReg_out(writeReg_WB)
 );
 
 
