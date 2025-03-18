@@ -2,6 +2,8 @@
 > [!NOTE] 
 > - Instructor : 葉宗泰
 > - Semester : 2024 Spring
+> - [Course Website](https://people.cs.nycu.edu.tw/~ttyeh/course/2024_Spring/CS10014/outline.html)
+> - [Lab Website](https://nycu-caslab.github.io/CO2024/index.html)  
 
 ## Labs
 |       | Topic                                                   |
