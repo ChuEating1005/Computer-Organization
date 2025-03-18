@@ -1,7 +1,7 @@
 // Verilated -*- C++ -*-
 // DESCRIPTION: Verilator output: Symbol table implementation internals
 
-#include "VSingleCycleCPU__Syms.h"
+#include "VSingleCycleCPU__pch.h"
 #include "VSingleCycleCPU.h"
 #include "VSingleCycleCPU___024root.h"
 

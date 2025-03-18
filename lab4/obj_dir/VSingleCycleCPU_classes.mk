@@ -24,15 +24,15 @@ VM_TRACE_FST = 0
 # Generated module classes, fast-path, compile with highest optimization
 VM_CLASSES_FAST += \
 	VSingleCycleCPU \
-	VSingleCycleCPU___024root__DepSet_h0d39b513__0 \
-	VSingleCycleCPU___024root__DepSet_hf8cd7fb5__0 \
+	VSingleCycleCPU___024root__DepSet_h2af3ba23__0 \
+	VSingleCycleCPU___024root__DepSet_h6bb9bb82__0 \
 
 # Generated module classes, non-fast-path, compile with low/medium optimization
 VM_CLASSES_SLOW += \
 	VSingleCycleCPU__ConstPool_0 \
 	VSingleCycleCPU___024root__Slow \
-	VSingleCycleCPU___024root__DepSet_h0d39b513__0__Slow \
-	VSingleCycleCPU___024root__DepSet_hf8cd7fb5__0__Slow \
+	VSingleCycleCPU___024root__DepSet_h2af3ba23__0__Slow \
+	VSingleCycleCPU___024root__DepSet_h6bb9bb82__0__Slow \
 
 # Generated support classes, fast-path, compile with highest optimization
 VM_SUPPORT_FAST += \

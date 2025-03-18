@@ -15,7 +15,7 @@ class VSingleCycleCPU___024root;
 class VerilatedVcdC;
 
 // This class is the main interface to the Verilated model
-class VSingleCycleCPU VL_NOT_FINAL : public VerilatedModel {
+class alignas(VL_CACHE_LINE_BYTES) VSingleCycleCPU VL_NOT_FINAL : public VerilatedModel {
   private:
     // Symbol table holding complete model state (owned by this class)
     VSingleCycleCPU__Syms* const vlSymsp;
@@ -73,7 +73,13 @@ class VSingleCycleCPU VL_NOT_FINAL : public VerilatedModel {
     const char* hierName() const override final;
     const char* modelName() const override final;
     unsigned threads() const override final;
+    /// Prepare for cloning the model at the process level (e.g. fork in Linux)
+    /// Release necessary resources. Called before cloning.
+    void prepareClone() const;
+    /// Re-init after cloning the model at the process level (e.g. fork in Linux)
+    /// Re-allocate necessary resources. Called after cloning.
+    void atClone() const;
     std::unique_ptr<VerilatedTraceConfig> traceConfig() const override final;
-} VL_ATTR_ALIGNED(VL_CACHE_LINE_BYTES);
+};
 
 #endif  // guard

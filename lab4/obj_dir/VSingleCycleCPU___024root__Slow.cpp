@@ -2,8 +2,7 @@
 // DESCRIPTION: Verilator output: Design implementation internals
 // See VSingleCycleCPU.h for the primary calling header
 
-#include "verilated.h"
-
+#include "VSingleCycleCPU__pch.h"
 #include "VSingleCycleCPU__Syms.h"
 #include "VSingleCycleCPU___024root.h"
 
